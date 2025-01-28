@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PaymentTermes index{% endblock %}
+
+{% block body %}
+    <h1>PaymentTermes index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Conditions</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for payment_terme in payment_termes %}
+            <tr>
+                <td>{{ payment_terme.id }}</td>
+                <td>{{ payment_terme.createdAt ? payment_terme.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ payment_terme.conditions }}</td>
+                <td>
+                    <a href="{{ path('app_payment_termes_show', {'id': payment_terme.id}) }}">show</a>
+                    <a href="{{ path('app_payment_termes_edit', {'id': payment_terme.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_payment_termes_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PaymentTermes{% endblock %}
+
+{% block body %}
+    <h1>PaymentTermes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ payment_terme.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ payment_terme.createdAt ? payment_terme.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Conditions</th>
+                <td>{{ payment_terme.conditions }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_payment_termes_index') }}">back to list</a>
+
+    <a href="{{ path('app_payment_termes_edit', {'id': payment_terme.id}) }}">edit</a>
+
+    {{ include('payment_termes/_delete_form.html.twig') }}
+{% endblock %}

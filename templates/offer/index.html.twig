@@ -1,0 +1,255 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offer index
+{% endblock %}
+
+{% block body %}
+    <h1> index offer </h1>
+{# 
+	<main id="main" class="main ">
+
+		<section class="section dashboard">
+			<div class="row">
+				<h2 class="text-center text-uppercase fw-bold mb-4">Nos forfaits limités
+				</h2>
+				<!-- Sales Card -->
+				{% for offer in offers|filter(offre => offre.type == "limite") %}
+					<div class="col-xxl-4 col-md-16" data-bs-toggle="modal" data-bs-target="#exampleModal" data-offerid="{{offer.id}}" data-title="{{offer.qauntity}} Go | 318Jrs " data-price="{{offer.reducedPrices}}">
+						<div class="card info-card sales-card" style="height: 100%;">
+							<div
+								class="card-body d-flex p-2" style="height: 100%;">
+								<!-- Première moitié en jaune -->
+								<div class="bg-yellow d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+									<h5 class="card-title m-0">{{offer.qauntity}}
+										Go
+										<span>| 318 Jrs</span>
+									</h5>
+								</div>
+
+								<!-- Deuxième moitié -->
+								<div class="d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+									<div class="d-flex align-items-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<!-- Icône monétaire représentant la devise -->
+											<i class="bi bi-cash"></i>
+										</div>
+										<div class="ps-3">
+											<h6>{{offer.reducedPrices}}</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+
+				<!-- End Sales Card -->
+
+
+			</div>
+
+			<div class="row mt-5">
+				<h2 class="text-center text-uppercase fw-bold mb-4">Nos forfaits illimités
+				</h2>
+				<!-- Sales Card -->
+				{% for offer in offers|filter(offre => offre.type == "illimite") %}
+					<div class="col-xxl-4 col-md-16" data-bs-toggle="modal" data-bs-target="#exampleModal" data-offerid="{{offer.id}}" data-title="{{offer.qauntity}} Go | 30Jrs" data-price="{{offer.reducedPrices}}">
+						<div class="card info-card sales-card" style="height: 100%;">
+							<div
+								class="card-body d-flex p-2" style="height: 100%;">
+								<!-- Première moitié en jaune -->
+								<div class="bg-yellow d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+									<h5 class="card-title m-0">{{offer.qauntity}}
+										Go
+										<span>| 310Jrs</span>
+									</h5>
+								</div>
+
+								<!-- Deuxième moitié -->
+								<div class="d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+									<div class="d-flex align-items-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<!-- Icône monétaire représentant la devise -->
+											<i class="bi bi-cash"></i>
+										</div>
+										<div class="ps-3">
+											<h6>{{offer.reducedPrices}}</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				{% endfor %}
+				<!-- End Sales Card -->
+
+
+				<!-- Left side columns -->
+				<div class="col-lg-12"><br>
+					<div
+						class="row">{# <!-- Sales Card -->
+																				<div class="col-xxl-4 col-md-16" data-bs-toggle="modal" data-bs-target="#exampleModal" data-offerid="2" data-title="50 Go | 30Jrs" data-price="8500">
+																					<div class="card info-card sales-card" style="height: 100%;">
+																						<div
+																							class="card-body d-flex p-2" style="height: 100%;">
+																							<!-- Première moitié en jaune -->
+																							<div class="bg-yellow d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+																								<h5 class="card-title m-0">50 Go
+																									<span>| 30Jrs</span>
+																								</h5>
+																							</div>
+														
+																							<!-- Deuxième moitié -->
+																							<div class="d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+																								<div class="d-flex align-items-center">
+																									<div
+																										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+																										<!-- Icône monétaire représentant la devise -->
+																										<i class="bi bi-cash"></i>
+																									</div>
+														
+																									<div class="ps-3">
+																										<h6>8500</h6>
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<!-- End Sales Card -->
+																				<br> #}
+
+
+					</div>
+				</div>
+				<!-- End Left side columns -->
+
+			</div>
+
+			<!-- Modal commun -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form action="{{path('app_offer_index')}}" method="post">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Détails</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<input type="hidden" name="offerId" id="offerId">
+								<p>
+									<strong>Offre :</strong>
+									<span id="modal-title">---</span>
+								</p>
+								<p>
+									<strong>Prix :</strong>
+									<span id="modal-price">---</span>
+									FCFA</p>
+								<div class="mb-3">
+									<label for="phoneNumber" class="form-label">Numéro de téléphone</label>
+									<input type="tel" name="tel" class="form-control" id="phoneNumber">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+								<button type="submit" class="btn btn-primary">Confirmer</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Script JavaScript -->
+		<script>
+			// Lorsque le modal est ouvert, on met à jour son contenu avec les données des cartes
+            var modal = document.getElementById('exampleModal');
+            modal.addEventListener('show.bs.modal', function (event) { // On récupère l'élément (la carte) qui a été cliqué
+            var button = event.relatedTarget;
+
+            // Récupère le titre et le prix des données de la carte
+            var title = button.getAttribute('data-title');
+            var price = button.getAttribute('data-price');
+            var offerId = button.getAttribute('data-offerId');
+
+            // On cible les éléments dans le modal où les données seront injectées
+            var modalTitle = modal.querySelector('.modal-title');
+            var modalBodyTitle = modal.querySelector('#modal-title');
+            var modalBodyPrice = modal.querySelector('#modal-price');
+            var offerIdInput = modal.querySelector('#offerId');
+
+
+            // On met à jour le modal avec les données de la carte
+            modalTitle.textContent = 'Détails de l\'offre';
+            modalBodyTitle.textContent = title;
+            modalBodyPrice.textContent = price;
+            offerIdInput.value = offerId;
+            });
+		</script>
+
+
+		<!-- Style -->
+		<style>
+			.bg-yellow {
+				background-color: yellow;
+				/* Remplit entièrement la moitié jaune */
+			}
+
+			.card {
+				height: 100%;
+				/* Assure que la carte occupe la même taille que les autres */
+			}
+
+			.card-body {
+				display: flex;
+				height: 100%;
+			}
+
+			.card-title {
+				margin: 0;
+				/* Supprime les marges des titres */
+			}
+		</style>
+
+	</main> #}
+ <h1>Offer index</h1>
+		
+		    <table class="table">
+		        <thead>
+		            <tr>
+		                <th>Id</th>
+		                <th>CreatedAt</th>
+		                <th>Quantity</th>
+		                <th>Price</th>
+		                <th>DeadLine</th>
+		                <th>Type</th>
+		                <th>actions</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        {% for offer in offers %}
+		            <tr>
+		                <td>{{ offer.id }}</td>
+		                <td>{{ offer.createdAt ? offer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+		                <td>{{ offer.quantity }}</td>
+		                <td>{{ offer.price }}</td>
+		                <td>{{ offer.deadLine }}</td>
+		                <td>{{ offer.type }}</td>
+		                <td>
+		                    <a href="{{ path('app_offer_show', {'id': offer.id}) }}">show</a>
+		                    <a href="{{ path('app_offer_edit', {'id': offer.id}) }}">edit</a>
+		                </td>
+		            </tr>
+		        {% else %}
+		            <tr>
+		                <td colspan="7">no records found</td>
+		            </tr>
+		        {% endfor %}
+		        </tbody>
+		    </table>
+		
+		    <a href="{{ path('app_offer_new') }}">Create new</a> 
+{% endblock %}
