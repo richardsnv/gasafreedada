@@ -52,6 +52,9 @@ class RegistrationController extends AbstractController
                 UrlGeneratorInterface::ABSOLUTE_URL // Générer un lien absolu
             );
 
+            //Rediriger vers le link generer 
+            return $this->redirect($link);
+
             // Créer l'email
              $email = (new Email())
              ->from('maruisounouvou@gmail.com')  // Remplace par ton adresse email
