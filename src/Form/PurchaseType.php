@@ -17,9 +17,7 @@ class PurchaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
+
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',

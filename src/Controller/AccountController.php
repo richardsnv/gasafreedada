@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Account;
 use App\Form\AccountType;
 use App\Repository\AccountRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +24,18 @@ final class AccountController extends AbstractController
     }
 
     #[Route('/new', name: 'app_account_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $user): Response
     {
         $account = new Account();
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $account->setUser($this->getUser());
+
+            if (in_array('ROLE_USER', $this->getUser()->getRoles())) {
+                $account->setType('USER');
+            }
             $entityManager->persist($account);
             $entityManager->flush();
 

@@ -30,6 +30,7 @@ final class PurchaseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $purchase->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($purchase);
             $entityManager->flush();
 

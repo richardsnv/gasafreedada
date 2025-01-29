@@ -3,6 +3,7 @@
 {% block title %}Purchase index{% endblock %}
 
 {% block body %}
+<main id="main" class="main text-center">
     <h1>Purchase index</h1>
 
     <table class="table">
@@ -19,8 +20,8 @@
                 <td>{{ purchase.id }}</td>
                 <td>{{ purchase.createdAt ? purchase.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_purchase_show', {'id': purchase.id}) }}">show</a>
-                    <a href="{{ path('app_purchase_edit', {'id': purchase.id}) }}">edit</a>
+                    <a href="{{ path('app_purchase_show', {'id': purchase.id}) }}" class="btn btn-info btn-sm">show</a>
+                    <a href="{{ path('app_purchase_edit', {'id': purchase.id}) }}" class="btn btn-warning btn-sm">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_purchase_new') }}">Create new</a>
+    <a href="{{ path('app_purchase_new') }}" class="btn btn-primary">Create new</a>
 {% endblock %}

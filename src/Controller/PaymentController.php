@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Payment;
 use App\Form\PaymentType;
 use App\Repository\PaymentRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/payment')]
 final class PaymentController extends AbstractController
@@ -30,6 +32,7 @@ final class PaymentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $payment->setCreatedAt(new DateTimeImmutable());
             $entityManager->persist($payment);
             $entityManager->flush();
 
