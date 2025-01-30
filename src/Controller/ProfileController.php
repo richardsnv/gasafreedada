@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $request, EntityManagerInterface $entityManager, PasswordHasherInterface $passwordHasher): Response
+    public function index(Request $request, EntityManagerInterface $entityManager,): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(PasswordUpdateFormType::class, $user);
@@ -47,7 +47,7 @@ final class ProfileController extends AbstractController
             // Message de succès
             $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès.');
 
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('profile/index.html.twig', [

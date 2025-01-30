@@ -46,7 +46,9 @@
 	</head>
 	<body>
         {% include 'partials/header.html.twig' %}
+		 {% if app.user is not null %}
         {% include 'partials/sidebar.html.twig' %}
+		{% endif %}
         
 		{% block body %}
         {% endblock %}
