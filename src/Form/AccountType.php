@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Account;
-use App\Entity\Purchase;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,16 +14,26 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('momoNumber')
-            ->add('type')
-            ->add('purchase', EntityType::class, [
-                'class' => Purchase::class,
-                'choice_label' => 'id',
+            ->add('momoNumber', TextType::class, [
+                'label' => 'Numéro Momo',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'required' => true,
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('type', ChoiceType::class, [
+            //     'label' => 'Type de compte',
+            //     'choices' => [
+            //         'MTN' => 'MTN',
+            //         'GASA' => 'GASA',
+            //         'USER' => 'USER',
+            //     ],
+            //     'expanded' => false,
+            //     'multiple' => false,
+            //     'attr' => [
+            //         'class' => 'mt-3',
+            //     ],
+            // ])
         ;
     }
 

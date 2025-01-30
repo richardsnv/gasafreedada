@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Offer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,43 +21,35 @@ class OfferType extends AbstractType
             ->add('quantity', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    
+
                     'label' => 'Quantité (Go)',
                 ]])
             ->add('price', MoneyType::class, [
-                'attr'=>[
-                    'class'=>'form-control'
+                'attr' => [
+                    'class' => 'form-control',
                 ],
                 'label' => 'Prix (FCFA)',
                 'currency' => 'XOF',
-                
-                
             ])
             ->add('deadLine', IntegerType::class, [
                 'label' => 'Durée (en jours)',
                 'attr' => [
-                   'class'=> 'form-control'
+                    'class' => 'form-control',
                 ],
             ])
             ->add('type', ChoiceType::class, [
-                
-                    'label' => 'Type d\'offre',
-                    'choices' => [
-                        'Illimité' => 'ILLIMITE',
-                        'Limité' => 'LIMITE',
-                    ],
-                    'expanded' => true, 
-                    'multiple' => false, 
-                    'attr' => [
-                        'class' => 'form-check', 
-                    ],
-                ])
-            // ->add('createdAt', DateTimeType::class, [
-            //     'label' => 'Date de création',
-            //     'widget' => 'single_text',
-            //     'attr' => [
-            //     ],
-            // ])
+                'label' => 'Type d\'offre',
+                'choices' => [
+                    'Illimité' => 'ILLIMITE',
+                    'Limité' => 'LIMITE',
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'attr' => [
+                    'class' => 'form-check',
+                ],
+            ])
+
         ;
     }
 

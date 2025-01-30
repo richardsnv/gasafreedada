@@ -19,8 +19,8 @@ class Payment
     #[ORM\Column(length: 255)]
     private ?string $amount = null;
 
-    #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
-    private ?Purchase $purchase = null;
+    // #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
+    // private ?Purchase $purchase = null;
 
     public function getId(): ?int
     {
@@ -51,20 +51,20 @@ class Payment
         return $this;
     }
 
-    public function getPurchase(): ?Purchase
-    {
-        return $this->purchase;
-    }
+    // public function getPurchase(): ?Purchase
+    // {
+    //     return $this->purchase;
+    // }
 
-    public function setPurchase(Purchase $purchase): static
-    {
-        // set the owning side of the relation if necessary
-        if ($purchase->getPayment() !== $this) {
-            $purchase->setPayment($this);
-        }
+    // public function setPurchase(Purchase $purchase): static
+    // {
+    //     // set the owning side of the relation if necessary
+    //     if ($purchase->getPayment() !== $this) {
+    //         $purchase->setPayment($this);
+    //     }
 
-        $this->purchase = $purchase;
+    //     $this->purchase = $purchase;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

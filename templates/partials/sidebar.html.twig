@@ -47,13 +47,18 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
+            <a href="{{path('app_account_index')}}">
               <i class="bi bi-circle"></i><span>View the accounts</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
+            <a href="{{path('app_account_new')}}">
               <i class="bi bi-circle"></i><span>add an account</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>show an account</span>
             </a>
           </li>
         </ul>
@@ -65,15 +70,11 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{path('app_payment_index')}}">
               <i class="bi bi-circle"></i><span>View the payments</span>
             </a>
           </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>Add an payment</span>
-            </a>
-          </li>
+         
 
         </ul>
       </li><!-- End Charts Nav -->
@@ -84,12 +85,12 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
+            <a href="{{path('app_purchase_index')}}">
               <i class="bi bi-circle"></i><span>View purchase</span>
             </a>
           </li>
           <li>
-            <a href="icons-remix.html">
+            <a href="{{path('app_purchase_index')}}">
               <i class="bi bi-circle"></i><span>add an purchase</span>
             </a>
           </li>
