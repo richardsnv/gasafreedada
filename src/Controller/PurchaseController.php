@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Purchase;
 use App\Form\PurchaseType;
+use App\Repository\AccountRepository;
+use App\Repository\OfferRepository;
 use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,9 +17,23 @@ use Symfony\Component\Routing\Attribute\Route;
 final class PurchaseController extends AbstractController
 {
     #[Route(name: 'app_purchase_index', methods: ['GET'])]
-    public function index(PurchaseRepository $purchaseRepository): Response
+    public function index(PurchaseRepository $purchaseRepository, AccountRepository $accountRepository, Request $request, OfferRepository $offerRepository): Response
     {
+        $user = $this->getUser();
+        $accounts = $accountRepository->findBy(['user' => $user]);
+
+        if ($request->getMethod() === 'POST') {
+            // dd($request);
+            $achat = new Purchase();
+            $offer = $offerRepository->find($request->get('offerId'));
+            $achat->setOffer($offer);
+            $achat->setCreatedAt(new \DateTimeImmutable());
+            $offerId = $request->query->get('offerId');
+        }
+
         return $this->render('purchase/index.html.twig', [
+            'accounts' => $accounts,
+
             'purchases' => $purchaseRepository->findAll(),
         ]);
     }

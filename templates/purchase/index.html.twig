@@ -10,6 +10,10 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>User</th>
+                <th>quantity</th>
+                <th>Price</th>
+                <th>dadline</th>
                 <th>CreatedAt</th>
                 <th>actions</th>
             </tr>
@@ -18,6 +22,10 @@
         {% for purchase in purchases %}
             <tr>
                 <td>{{ purchase.id }}</td>
+                <td>{{ purchase.user.lastname }} {{ purchase.user.firstname }}</td>
+                <td>{{ purchase.offer.quantity }}</td>
+                <td>{{ purchase.offer.price }}</td>
+                <td>{{ purchase.offer.deadLine }} Jrs</td>
                 <td>{{ purchase.createdAt ? purchase.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_purchase_show', {'id': purchase.id}) }}" class="btn btn-info btn-sm">show</a>

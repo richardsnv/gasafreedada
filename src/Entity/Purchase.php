@@ -24,10 +24,6 @@ class Purchase
     #[ORM\JoinColumn(nullable: false)]
     private ?Account $account = null;
 
-    #[ORM\OneToOne(inversedBy: 'purchase', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Payment $payment = null;
-
     #[ORM\ManyToOne(inversedBy: 'purchases')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $offer = null;
@@ -73,17 +69,17 @@ class Purchase
         return $this;
     }
 
-    public function getPayment(): ?Payment
-    {
-        return $this->payment;
-    }
+    // public function getPayment(): ?Payment
+    // {
+    //     return $this->payment;
+    // }
 
-    public function setPayment(Payment $payment): static
-    {
-        $this->payment = $payment;
+    // public function setPayment(Payment $payment): static
+    // {
+    //     $this->payment = $payment;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getOffer(): ?Offer
     {

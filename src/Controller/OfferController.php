@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Offer;
 use App\Form\OfferType;
+use App\Repository\AccountRepository;
 use App\Repository\OfferRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,25 +16,42 @@ use Symfony\Component\Routing\Attribute\Route;
 final class OfferController extends AbstractController
 {
     #[Route(name: 'app_offer_index', methods: ['GET', 'POST'])]
-    public function index(OfferRepository $offerRepository): Response
+    public function index(OfferRepository $offerRepository, AccountRepository $accountRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+        $offer = new Offer();
+        $accounts = $accountRepository->findBy(['user' => $user]);
+        $form = $this->createForm(OfferType::class, $offer);
+        $form->handleRequest($request);
+        // dd($accounts);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $offer->setCreatedAt(new \DateTimeImmutable());
+
+            $entityManager->persist($offer);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('offer/index.html.twig', [
             'offers' => $offerRepository->findAll(),
             'user' => $user,
-        ]);
+            'accounts' => $accounts, ]);
     }
 
     #[Route('/new', name: 'app_offer_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
         $offer = new Offer();
+        // $accounts = $accountRepository->findBy(['user' => $user]);
         $form = $this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $offer->setCreatedAt(new \DateTimeImmutable());
+
             $entityManager->persist($offer);
 
             $entityManager->flush();
