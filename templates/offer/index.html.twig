@@ -119,7 +119,12 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-								<button type="submit" class="btn btn-primary">Confirmer</button>
+								{# <button type="submit" class="btn btn-primary">Confirmer</button> #}
+								{# <form action="{{ path('app_payment_index') }}" method="get">
+    								<button type="submit" class="btn btn-primary">Confirmer</button>
+								</form> #}
+								<a href="{{ path('app_payment_new') }}" class="btn btn-primary">Confirmer</a>
+
 							</div>
 						</form>
 					</div>
