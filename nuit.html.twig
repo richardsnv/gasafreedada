@@ -141,7 +141,7 @@
                     <!-- URL générée par Symfony, injectée dans un attribut data-url -->
                     {# <button type="button" id="pay-btn" data-url="{{ path('app_home', {'price': '__price__'}) }}">Payer</button> #}
 					{# <button type="button" id="pay-btn" data-url="{{ path('app_home', {'price': '__price__', 'momoNumber': '__momoNumber__'}) }}">Payer</button> #}
-{# 
+
 					<form action="{{ path('app_home') }}" method="POST">
 						
 						<input type="hidden" name="price" id="price" value="" required >
@@ -149,16 +149,7 @@
 						<input type="hidden" name="acountNumber" id="acountnumber" value="" required >
 
 						<button type="submit" id="pay-btn" data-url="{{ path('app_home') }}" name="pay-btn">Confirmer</button>
-					</form> #}
-
-					<form action="{{ path('app_home') }}" method="POST">
-    <input type="hidden" name="price" id="price" value="" required>
-    <input type="hidden" name="acountnumber" id="acountnumber" value="" required>
-	<input type="hidden" name="offerid" id="offerid" value="">
-
-    <button type="submit" id="pay-btn" data-url="{{ path('app_home') }}" name="pay-btn">Confirmer</button>
-</form>
-
+					</form>
 
 {# 
 								<script>
@@ -206,7 +197,6 @@
 
 			var form_price =  modal.querySelector('#price');
 			var form_acountNumber = modal.querySelector('acountnumber');
-			var form_idoffer = modal.querySelector('#offerid')
 
 	
 			// Met à jour le contenu du modal
@@ -216,29 +206,88 @@
 			modalBodyDeadline.textContent = deadline;
 			offerIdInput.value = offerId;
 
-					// Ajoute un écouteur d'événement pour récupérer le numéro de compte
-			const accountSelect = document.getElementById('accountNumber');
-			accountSelect.addEventListener('change', function () {
-				const selectedOption = accountSelect.options[accountSelect.selectedIndex];
-				const momoNumber = selectedOption.getAttribute('data-momo-number');
-				
-				// Met à jour les valeurs des inputs cachés
-				form_price.value = price;
-				form_accountNumber.value = momoNumber;
-				form_idoffer.value = offerId;
+			 // Ajouter l'événement pour récupérer le momoNumber
+        const accountSelect = document.getElementById('accountNumber');
 
+        accountSelect.addEventListener('change', function () {
+            const selectedOption = accountSelect.options[accountSelect.selectedIndex];
+            const momoNumber = selectedOption.getAttribute('data-momo-number');
+	
+			form_price.value = price;
+			form_acountNumber.value = momoNumber;
+
+			   // Ajouter l'événement de redirection au clic sur le bouton "Payer"
+    //pay.addEventListener('click', function() {
+         //Générer l'URL avec la valeur du prix
+        //var url = "{{ path('app_home', {'price': '__price__'}) }}".replace('__price__', price);
+		    //console.log("URL générée pour la redirection : ", url); // Vérifie l'URL dans la console du navigateur
+
+        // S'assurer que l'URL est correctement générée, puis rediriger
+        //window.location.href = url;
+   // });
+
+     // Ajouter l'événement de redirection au clic sur le bouton "Payer"
+    //pay.addEventListener('click', function() {
+        // Récupérer l'URL avec le prix
+       // var url = pay.getAttribute('data-url').replace('__price__', price);
+
+        // Effectuer la redirection
+       // window.location.href = url;
+    //});
+
+	    // Mettre à jour le bouton "Payer" avec l'URL dynamique
+   // pay.setAttribute('data-url', "{{ path('app_home', {'price': '__price__'}) }}".replace('__price__', priceInt));
+	//const updatedUrl = pay.getAttribute('data-url')
+            //.replace('__price__', priceInt) // Remplacer __price__ par la valeur du prix
+            //.replace('__momoNumber__', momoNumber); 
+
+			 // Mettre à jour l'attribut data-url du bouton avec la nouvelle URL
+        //pay.setAttribute('data-url', updatedUrl);
+
+
+
+
+
+
+
+
+
+
+
+
+	 // Ajouter l'événement pour récupérer le momoNumber
+       // const accountSelect = document.getElementById('accountNumber');
+
+        //accountSelect.addEventListener('change', function () {
+           // const selectedOption = accountSelect.options[accountSelect.selectedIndex];
+           // const momoNumber = selectedOption.getAttribute('data-momo-number');
+
+            // Mettre à jour l'URL du bouton "Payer"
+           // const updatedUrl = pay.getAttribute('data-url')
+                //.replace('__price__', price) // Remplacer __price__ par le prix
+                //.replace('__momoNumber__', momoNumber); // Remplacer __momoNumber__ par le momoNumber sélectionné
+
+            // Mettre à jour l'attribut data-url du bouton "Payer"
+           // pay.setAttribute('data-url', updatedUrl);
+        //});
+
+
+
+    // Ajouter l'événement de redirection au clic sur le bouton "Payer"
+   // pay.addEventListener('click', function () {
+        // Récupérer l'URL dynamique de l'attribut data-url et effectuer la redirection
+       // var url = pay.getAttribute('data-url');
+       // window.location.href = url;
+    //});
+
+	 //Ajouter l'événement de redirection au clic sur le bouton "Payer"
+        pay.addEventListener('click', function () {
+            var url = pay.getAttribute('data-url');
+            window.location.href = url; // Rediriger vers l'URL mise à jour
+        });
+			
+				});
 			});
-		});
-
-		var payBtn = document.getElementById('pay-btn');
-
-		// Soumettre le formulaire lors du clic sur le bouton "Confirmer"
-		payBtn.addEventListener('click', function (event) {
-			var form = document.querySelector('form');  // Récupère le formulaire parent
-			form.submit();  // Soumet le formulaire
-		});
-			
-			
 		</script>
 
 
@@ -268,7 +317,81 @@
 	</main>
 
 
-	
+	<!-- Left side columns -->
+	{# <div class="col-lg-12"><br>
+									<div
+										class="row">{# <!-- Sales Card -->
+																								<div class="col-xxl-4 col-md-16" data-bs-toggle="modal" data-bs-target="#exampleModal" data-offerid="2" data-title="50 Go | 30Jrs" data-price="8500">
+																									<div class="card info-card sales-card" style="height: 100%;">
+																										<div
+																											class="card-body d-flex p-2" style="height: 100%;">
+																											<!-- Première moitié en jaune -->
+																											<div class="bg-yellow d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+																												<h5 class="card-title m-0">50 Go
+																													<span>| 30Jrs</span>
+																												</h5>
+																											</div>
+																		
+																											<!-- Deuxième moitié -->
+																											<div class="d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+																												<div class="d-flex align-items-center">
+																													<div
+																														class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+																														<!-- Icône monétaire représentant la devise -->
+																														<i class="bi bi-cash"></i>
+																													</div>
+																		
+																													<div class="ps-3">
+																														<h6>8500</h6>
+																													</div>
+																												</div>
+																											</div>
+																										</div>
+																									</div>
+																								</div>
+																								<!-- End Sales Card -->
+																								<br> #}
 
-        
-						              {% endblock %}
+
+</div></div>#}<!-- End Left side columns -->{# <h1>Offer index</h1>
+						
+						    <table class="table">
+						        <thead>
+						            <tr>
+						                <th>Id</th>
+						                <th>CreatedAt</th>
+						                <th>Quantity</th>
+						                <th>Price</th>
+						                <th>DeadLine</th>
+						                <th>Type</th>
+						                <th>actions</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						        {% for offer in offers %}
+						            <tr>
+						                <td>{{ offer.id }}</td>
+						                <td>{{ offer.createdAt ? offer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						                <td>{{ offer.quantity }}</td>
+						                <td>{{ offer.price }}</td>
+						                <td>{{ offer.deadLine }}</td>
+						                <td>{{ offer.type }}</td>
+						                <td>
+						                    <a href="{{ path('app_offer_show', {'id': offer.id}) }}">show</a>
+						                    <a href="{{ path('app_offer_edit', {'id': offer.id}) }}">edit</a>
+						                </td>
+						            </tr>
+						        {% else %}
+						            <tr>
+						                <td colspan="7">no records found</td>
+						            </tr>
+						        {% endfor %}
+						        </tbody>
+						    </table>
+						
+						    <a href="{{ path('app_offer_new') }}">Create new</a>  #}{% endblock %}
+
+
+approved
+cancelled
+pending

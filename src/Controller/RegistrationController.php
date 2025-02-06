@@ -37,10 +37,11 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
-            // $plainPassword = $form->get('plainPassword')->getData();
+             $plainPassword = $form->get('plainPassword')->getData();
 
             // encode the plain password
-            //  $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->settype("student");
+            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $token = bin2hex(random_bytes(16)); // Génère un token de 32 caractères
             $user->setToken($token);
             $entityManager->persist($user);
@@ -71,6 +72,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
+            'user'=>$form
         ]);
     }
 

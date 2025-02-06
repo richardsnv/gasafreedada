@@ -40,4 +40,14 @@ class AccountRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function accountbynumber($value): ?Account
+       {
+           return $this->createQueryBuilder('a')
+                ->andWhere('a.momo_number = :val')
+                ->setParameter('val', $value)
+               ->getQuery()
+                ->getOneOrNullResult()
+           ;
+       }
 }

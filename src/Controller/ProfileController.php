@@ -36,7 +36,7 @@ final class ProfileController extends AbstractController
             // Encoder et mettre à jour le mot de passe
             // $encodedPassword = $passwordHasher->hash($newPassword);
             // $user->setPassword($encodedPassword);
-            $encodedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+            $encodedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
             $user->setPassword($newPassword);
 

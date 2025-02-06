@@ -81,4 +81,10 @@ final class PaymentController extends AbstractController
 
         return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route( '/page_paiement',name:'app_page_peiement', methods: ['POST'])]
+    public function pagePaiement(): Response
+    {
+        return $this->render("payment/page_paiement.html.twig");
+    }
 }

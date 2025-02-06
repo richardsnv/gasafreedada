@@ -19,6 +19,16 @@ class Payment
     #[ORM\Column(length: 255)]
     private ?string $amount = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $statut = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $id_transaction = null;
+
+    #[ORM\ManyToOne(inversedBy: 'payments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     // #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
     // private ?Purchase $purchase = null;
 
@@ -67,4 +77,40 @@ class Payment
 
     //     return $this;
     // }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): static
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getIdTransaction(): ?string
+    {
+        return $this->id_transaction;
+    }
+
+    public function setIdTransaction(?string $id_transaction): static
+    {
+        $this->id_transaction = $id_transaction;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

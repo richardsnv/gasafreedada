@@ -23,20 +23,23 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+
             <a href="{{path('app_offer_index')}}">
               <i class="bi bi-circle"></i><span>View the offers</span>
             </a>
           </li>
+           {% if is_granted('ROLE_ADMIN') %}
           <li>
             <a href="{{path('app_offer_new')}}">
               <i class="bi bi-circle"></i><span>add an offer</span>
             </a>
           </li>
-           <li>
+           {# <li>
             <a href="#">
               <i class="bi bi-circle"></i><span>show the offers</span>
             </a>
-          </li>
+          </li> #}
+          {% endif %}
 {# {{path('app_offer_show')}} #}
         </ul>
       </li><!-- End Forms Nav -->
@@ -56,11 +59,11 @@
               <i class="bi bi-circle"></i><span>add an account</span>
             </a>
           </li>
-          <li>
+          {# <li>
             <a href="#">
               <i class="bi bi-circle"></i><span>show an account</span>
             </a>
-          </li>
+          </li> #}
         </ul>
       </li><!-- End Tables Nav -->
 
@@ -135,14 +138,14 @@
       </li><!-- End Contact Page Nav -->
        {% if app.user is  null %}
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" href="{{path('app_register')}}">
           <i class="bi bi-card-list"></i>
           <span>Register</span>
         </a>
       </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="{{path('app_login')}}">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Login</span>
         </a>
@@ -155,7 +158,19 @@
           <span>Blank</span>
         </a>
       </li><!-- End Blank Page Nav --> #}
-{% endif %}      
+{% endif %}  
+
+           {% if app.user is not  null %}
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="{{path('app_logout')}}">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logout</span>
+        </a>
+
+      </li>
+      
+{% endif %}  
 
     </ul>
 

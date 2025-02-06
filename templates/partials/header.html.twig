@@ -2,11 +2,28 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{path('app_home')}}" class="logo d-flex align-items-center">
+    {% if app.user is  null %}  
+
+      <a href="{{path('app_login')}}" class="logo d-flex align-items-center">
+        <img src="{{asset('assetss/img/logo.png')}}" alt="">
+        <span class="d-none d-lg-block">Gasafreedata</span>
+      </a>
+      
+       <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-enter" style"">
+          <li class="nav-item dropdown""><a href="{{path('app_login')}}" class="btn btn-outline-success">Login</a></li> &nbsp; &nbsp;
+          <li class="nav-item "><a href="{{path('app_register')}}" class="btn btn-primary">Register now</a></li>
+
+        </ul>
+       </nav>
+      {% else %}
+       <a href="{{path('app_home')}}" class="logo d-flex align-items-center">
         <img src="{{asset('assetss/img/logo.png')}}" alt="">
         <span class="d-none d-lg-block">Gasafreedata</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
+        
+
     </div><!-- End Logo -->
 
     <div class="search-bar">
@@ -170,7 +187,11 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assetss/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">  
+            
+            
+            
+            </span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -224,5 +245,6 @@
 
       </ul>
     </nav><!-- End Icons Navigation -->
-
+    {% endif %}  
+    </div>
   </header><!-- End Header -->

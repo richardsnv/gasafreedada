@@ -11,28 +11,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 #[Route('/offer')]
 final class OfferController extends AbstractController
 {
     #[Route(name: 'app_offer_index', methods: ['GET', 'POST'])]
-    public function index(OfferRepository $offerRepository, AccountRepository $accountRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(OfferRepository $offerRepository, AccountRepository $accountRepository, Request $request, EntityManagerInterface $entityManager,  SessionInterface $session): Response
     {
         $user = $this->getUser();
         $offer = new Offer();
         $accounts = $accountRepository->findBy(['user' => $user]);
-        $form = $this->createForm(OfferType::class, $offer);
-        $form->handleRequest($request);
-        // dd($accounts);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $offer->setCreatedAt(new \DateTimeImmutable());
+        // $form = $this->createForm(OfferType::class, $offer);
+        // $form->handleRequest($request);
+        // // dd($accounts);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $offer->setCreatedAt(new \DateTimeImmutable());
 
-            $entityManager->persist($offer);
+        //     $entityManager->persist($offer);
 
-            $entityManager->flush();
+        //     $entityManager->flush();
 
-            return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
-        }
+        //     return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
+        // }
+                $price = $request->request->get('price');
+            $accountNumber = $request->request->get('acountnumber');
+            $offerid = $request->request->get('offerid');
+
+            
+            // Enregistre les données dans la session
+            $session->set('price', $price);
+            $session->set('accountNumber', $accountNumber);
+            $session->set('offerid', $offerid);
+
+
+
+            // Redirige vers un autre contrôleur ou une page
+            if($request->isMethod('post')){
+                return $this->redirectToRoute('app_home');
+
+            }
 
         return $this->render('offer/index.html.twig', [
             'offers' => $offerRepository->findAll(),

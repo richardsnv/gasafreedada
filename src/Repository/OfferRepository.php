@@ -40,4 +40,5 @@ class OfferRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-}
+
+    }

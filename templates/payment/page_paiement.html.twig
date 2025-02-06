@@ -1,0 +1,252 @@
+<!-- Modal commun -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form action="{{path('app_offer_index')}}" method="post">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Détails</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<input type="hidden" name="offerId" id="offerId">
+								<p>
+									<strong>Offre :</strong>
+									<span id="modal-title">---</span>
+								</p>
+								<p>
+									<strong>Durée :</strong>
+									<span id="modal-deadline">---</span>
+								</p>
+								<p>
+									<strong>Prix :</strong>
+									<span id="modal-price">---</span>
+									FCFA</p>
+								<div class="mb-3">
+									<label for="accountNumber" class="form-label">Compte à débiter</label>
+									<select name="accountNumber" class="form-control" id="accountNumber">
+										<option value="">-- Sélectionnez un compte momo --</option>
+										{% for account in accounts %}
+											<option value="{{ account.id }}">{{ account.momoNumber }}</option>
+										{% endfor %}
+									</select>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+								{# <button type="submit" class="btn btn-primary">Confirmer</button> #}
+								{# <form action="{{ path('app_payment_index') }}" method="get">
+    								<button type="submit" class="btn btn-primary">Confirmer</button>
+								</form> #}
+
+								 {# <a href="{{ path('app_home', {'price':{{offer.price}}}) }}" class="btn btn-primary">Confirmer</a>  #}
+																{# <button id="pay-btn" >Payer</button> #}
+								 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <!-- URL générée par Symfony, injectée dans un attribut data-url -->
+                    <button type="button" id="pay-btn" data-url="{{ path('app_home', {'price': '__price__'}) }}">Payer</button>
+{# 
+								<script>
+									
+								FedaPay.init( pay, { public_key: "pk_sandbox_iMMuINy2vZInv2_fTlBgYxwc" });
+
+								</script> #}
+								
+									
+								
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Script JavaScript -->
+		<script>
+			
+
+			var modal = document.getElementById('exampleModal');
+			modal.addEventListener('show.bs.modal', function (event) { // Récupère l'élément déclencheur (la carte)
+			var button = event.relatedTarget;
+
+			// Récupère les données de l'offre depuis les attributs data-*
+			var title = button.getAttribute('data-title');
+			var price = button.getAttribute('data-price');
+			var offerId = button.getAttribute('data-offerid');
+			var deadline = button.getAttribute('data-deadline');
+
+			//price en int
+			var priceInt = parseInt(price, 10); 
+
+
+			// Cible les éléments du modal
+			var modalTitle = modal.querySelector('.modal-title');
+			var modalBodyTitle = modal.querySelector('#modal-title');
+			var modalBodyPrice = modal.querySelector('#modal-price');
+			var modalBodyDeadline = modal.querySelector('#modal-deadline');
+			var offerIdInput = modal.querySelector('#offerId');
+			var pay = modal.querySelector('#pay-btn');
+
+			// Met à jour le contenu du modal
+			modalTitle.textContent = 'Détails de l\'offre';
+			modalBodyTitle.textContent = title;
+			modalBodyPrice.textContent = price;
+			modalBodyDeadline.textContent = deadline;
+			offerIdInput.value = offerId;
+
+			   // Ajouter l'événement de redirection au clic sur le bouton "Payer"
+    //pay.addEventListener('click', function() {
+         //Générer l'URL avec la valeur du prix
+        //var url = "{{ path('app_home', {'price': '__price__'}) }}".replace('__price__', price);
+		    //console.log("URL générée pour la redirection : ", url); // Vérifie l'URL dans la console du navigateur
+
+        // S'assurer que l'URL est correctement générée, puis rediriger
+        //window.location.href = url;
+   // });
+
+     // Ajouter l'événement de redirection au clic sur le bouton "Payer"
+    //pay.addEventListener('click', function() {
+        // Récupérer l'URL avec le prix
+       // var url = pay.getAttribute('data-url').replace('__price__', price);
+
+        // Effectuer la redirection
+       // window.location.href = url;
+    //});
+
+	    // Mettre à jour le bouton "Payer" avec l'URL dynamique
+    pay.setAttribute('data-url', "{{ path('app_home', {'price': '__price__'}) }}".replace('__price__', priceInt));
+
+    // Ajouter l'événement de redirection au clic sur le bouton "Payer"
+    pay.addEventListener('click', function () {
+        // Récupérer l'URL dynamique de l'attribut data-url et effectuer la redirection
+        var url = pay.getAttribute('data-url');
+        window.location.href = url;
+    });
+			});
+		</script>
+
+
+		<!-- Style -->
+		<style>
+			.bg-yellow {
+				background-color: yellow;
+				/* Remplit entièrement la moitié jaune */
+			}
+
+			.card {
+				height: 100%;
+				/* Assure que la carte occupe la même taille que les autres */
+			}
+
+			.card-body {
+				display: flex;
+				height: 100%;
+			}
+
+			.card-title {
+				margin: 0;
+				/* Supprime les marges des titres */
+			}
+		</style>
+
+	</main>
+
+
+	<!-- Left side columns -->
+	{# <div class="col-lg-12"><br>
+									<div
+										class="row">{# <!-- Sales Card -->
+																								<div class="col-xxl-4 col-md-16" data-bs-toggle="modal" data-bs-target="#exampleModal" data-offerid="2" data-title="50 Go | 30Jrs" data-price="8500">
+																									<div class="card info-card sales-card" style="height: 100%;">
+																										<div
+																											class="card-body d-flex p-2" style="height: 100%;">
+																											<!-- Première moitié en jaune -->
+																											<div class="bg-yellow d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+																												<h5 class="card-title m-0">50 Go
+																													<span>| 30Jrs</span>
+																												</h5>
+																											</div>
+																		
+																											<!-- Deuxième moitié -->
+																											<div class="d-flex align-items-center justify-content-center" style="flex: 1; height: 100%; box-sizing: border-box; padding: 0; margin: 0;">
+																												<div class="d-flex align-items-center">
+																													<div
+																														class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+																														<!-- Icône monétaire représentant la devise -->
+																														<i class="bi bi-cash"></i>
+																													</div>
+																		
+																													<div class="ps-3">
+																														<h6>8500</h6>
+																													</div>
+																												</div>
+																											</div>
+																										</div>
+																									</div>
+																								</div>
+																								<!-- End Sales Card -->
+																								<br> #}
+
+
+</div></div>#}<!-- End Left side columns -->{# <h1>Offer index</h1>
+						
+						    <table class="table">
+						        <thead>
+						            <tr>
+						                <th>Id</th>
+						                <th>CreatedAt</th>
+						                <th>Quantity</th>
+						                <th>Price</th>
+						                <th>DeadLine</th>
+						                <th>Type</th>
+						                <th>actions</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						        {% for offer in offers %}
+						            <tr>
+						                <td>{{ offer.id }}</td>
+						                <td>{{ offer.createdAt ? offer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						                <td>{{ offer.quantity }}</td>
+						                <td>{{ offer.price }}</td>
+						                <td>{{ offer.deadLine }}</td>
+						                <td>{{ offer.type }}</td>
+						                <td>
+						                    <a href="{{ path('app_offer_show', {'id': offer.id}) }}">show</a>
+						                    <a href="{{ path('app_offer_edit', {'id': offer.id}) }}">edit</a>
+						                </td>
+						            </tr>
+						        {% else %}
+						            <tr>
+						                <td colspan="7">no records found</td>
+						            </tr>
+						        {% endfor %}
+						        </tbody>
+						    </table>
+						
+						    <a href="{{ path('app_offer_new') }}">Create new</a>  #}{% endblock %}
+
+
+
+
+
+
+    <button id="pay-btn">Payer
+    
+    </button>
+									<script type="text/javascript">
+                 
+                 
+
+									FedaPay.init('#pay-btn', { public_key: "pk_sandbox_iMMuINy2vZInv2_fTlBgYxwc",
+                  transaction: {
+                    amount: 100
+                    description: "achat de forfait"
+                  },
+                  custumer: {
+                   
+                  }
+                   }
+                  );
+
+									</script>
