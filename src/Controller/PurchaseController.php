@@ -20,6 +20,7 @@ final class PurchaseController extends AbstractController
     public function index(PurchaseRepository $purchaseRepository, AccountRepository $accountRepository, Request $request, OfferRepository $offerRepository): Response
     {
         $user = $this->getUser();
+        
         $accounts = $accountRepository->findBy(['user' => $user]);
 
         if ($request->getMethod() === 'POST') {

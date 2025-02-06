@@ -50,4 +50,15 @@ class AccountRepository extends ServiceEntityRepository
                 ->getOneOrNullResult()
            ;
        }
+
+       public function findnumber($value): ?string
+       {
+           return $this->createQueryBuilder('a')
+               ->select('a.momoNumber') // Correction ici (ajout du select en premier)
+               ->andWhere('a.id = :val')
+               ->setParameter('val', $value)
+               ->getQuery()
+               ->getSingleScalarResult(); // Récupère une seule valeur directement
+       }
+       
 }

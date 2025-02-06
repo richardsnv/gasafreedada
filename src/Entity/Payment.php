@@ -29,6 +29,9 @@ class Payment
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $paiement_number = null;
+
     // #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
     // private ?Purchase $purchase = null;
 
@@ -110,6 +113,18 @@ class Payment
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPaiementNumber(): ?int
+    {
+        return $this->paiement_number;
+    }
+
+    public function setPaiementNumber(?int $paiement_number): static
+    {
+        $this->paiement_number = $paiement_number;
 
         return $this;
     }

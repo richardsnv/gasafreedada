@@ -155,7 +155,7 @@
     <input type="hidden" name="price" id="price" value="" required>
     <input type="hidden" name="acountnumber" id="acountnumber" value="" required>
 	<input type="hidden" name="offerid" id="offerid" value="">
-
+	
     <button type="submit" id="pay-btn" data-url="{{ path('app_home') }}" name="pay-btn">Confirmer</button>
 </form>
 
@@ -191,6 +191,7 @@
 			var price = button.getAttribute('data-price');
 			var offerId = button.getAttribute('data-offerid');
 			var deadline = button.getAttribute('data-deadline');
+			
 
 			//price en int
 			var priceInt = parseInt(price, 10); 
@@ -205,7 +206,7 @@
 			var pay = modal.querySelector('#pay-btn');
 
 			var form_price =  modal.querySelector('#price');
-			var form_acountNumber = modal.querySelector('acountnumber');
+			var form_acountNumber = modal.querySelector('#acountnumber');
 			var form_idoffer = modal.querySelector('#offerid')
 
 	
@@ -216,16 +217,20 @@
 			modalBodyDeadline.textContent = deadline;
 			offerIdInput.value = offerId;
 
+
+			// Met à jour les valeurs des inputs cachés
+				form_price.value = price;
+				form_accountNumber.value =64000000 ; //momoNumber
+				form_idoffer.value = offerId;
+
+				
 					// Ajoute un écouteur d'événement pour récupérer le numéro de compte
 			const accountSelect = document.getElementById('accountNumber');
 			accountSelect.addEventListener('change', function () {
 				const selectedOption = accountSelect.options[accountSelect.selectedIndex];
 				const momoNumber = selectedOption.getAttribute('data-momo-number');
 				
-				// Met à jour les valeurs des inputs cachés
-				form_price.value = price;
-				form_accountNumber.value = momoNumber;
-				form_idoffer.value = offerId;
+				
 
 			});
 		});

@@ -15,6 +15,7 @@
                 <th>Price</th>
                 <th>dadline</th>
                 <th>CreatedAt</th>
+                <th>Statut</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,10 +24,11 @@
             <tr>
                 <td>{{ purchase.id }}</td>
                 <td>{{ purchase.user.lastname }} {{ purchase.user.firstname }}</td>
-                <td>{{ purchase.offer.quantity }}</td>
-                <td>{{ purchase.offer.price }}</td>
+                <td>{{ purchase.offer.quantity }} Go</td>
+                <td>{{ purchase.offer.price }} FCFA</td>
                 <td>{{ purchase.offer.deadLine }} Jrs</td>
                 <td>{{ purchase.createdAt ? purchase.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{purchase.statut}}</td>
                 <td>
                     <a href="{{ path('app_purchase_show', {'id': purchase.id}) }}" class="btn btn-info btn-sm">show</a>
                     <a href="{{ path('app_purchase_edit', {'id': purchase.id}) }}" class="btn btn-warning btn-sm">edit</a>
@@ -40,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_purchase_new') }}" class="btn btn-primary">Create new</a>
+    {# <a href="{{ path('app_purchase_new') }}" class="btn btn-primary">Create new</a> #}
 {% endblock %}

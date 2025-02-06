@@ -31,14 +31,15 @@ final class HomeController extends AbstractController
         $offerid= $session->get('offerid');
 
         $price = $session->get('price');
-        $acountNumber = $session->get('accountNumber');
 
+        $acountnumber = $session->get('momonumber');
+        $acountid = $session->get('account_id');
 
+      
         if($request->isMethod('POST')){
             $id_transaction = $_POST['transaction-id'];
             $status_transaction = $_POST['transaction-status'];
               
-          
 
 
             $paiement = new Payment();
@@ -47,31 +48,41 @@ final class HomeController extends AbstractController
             $paiement->setStatut($status_transaction);
             $paiement->setIdTransaction($id_transaction);
             $paiement->setUser($user);
-
+            $paiement->setPaiementNumber(intval($acountnumber));
+            
             $entityManager->persist($paiement);
             $entityManager->flush();
 
             if($status_transaction == "approved"){
                 $purchase = new Purchase();
 
-                $offer = $offerRepository->find(['id'=>$offerid]);
+                $offer = $offerRepository->find($offerid);
+                if($request->isMethod = "post"){
+
+               
                 //recuper id accound
-                dd($acountNumber);
-                $account = $accountRepository->accountbynumber($accountNumber);
+                // $accountNumber = $paiement->get);
+                // dd($acountnumber);
+                // $accountNumber = $paiement->getPaiementNumber();
+                // dd($accountNumber);
+                // $account = $accountRepository->accountbynumber($accountNumber);
                 // $infoaccount = $accountRepository->findBy(['momoNumber'=>$acountNumber]);
                 // dd($infoaccount);
-                $account = $accountRepository->find(['momoNumber'=>$acountNumber]);
+             
+                $account = $accountRepository->find($acountid);
+               
                 $purchase->setCreatedAt(new \DateTimeImmutable);
                 $purchase->setUser($user);
                 $purchase->setAccount($account);
-                $purchase->setStatut("En Attente");
                 $purchase->setOffer($offer);
+                $purchase->setStatut("En Attente"); 
 
 
                 $entityManager->persist($purchase);
-                $entityManager->flush;
+                $entityManager->flush();
 
                 $this->redirectToRoute('app_offer_index');
+            }
 
             }else{
                 $this->redirectToRoute('app_home');
@@ -86,7 +97,7 @@ final class HomeController extends AbstractController
             'firstname'=>$firstname,
             'email'=>$email,
             'momo'=>$momo,
-            'acountNumber'=>$acountNumber
+            'acountNumber'=>$acountnumber
         ]);
     }
 }

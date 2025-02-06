@@ -36,19 +36,28 @@ final class OfferController extends AbstractController
         //     return $this->redirectToRoute('app_offer_index', [], Response::HTTP_SEE_OTHER);
         // }
                 $price = $request->request->get('price');
-            $accountNumber = $request->request->get('acountnumber');
-            $offerid = $request->request->get('offerid');
+            $acountNumber = $request->request->get('acountnumber');
+
+            
+            $offerid = $request->request->get('offerId');
 
             
             // Enregistre les données dans la session
             $session->set('price', $price);
-            $session->set('accountNumber', $accountNumber);
+            $session->set('acountNumber', $acountNumber);
             $session->set('offerid', $offerid);
-
+            
 
 
             // Redirige vers un autre contrôleur ou une page
             if($request->isMethod('post')){
+               $momoid=  $request->get('accountNumber');
+               $momonumber = $accountRepository->findnumber(($momoid));
+               $session->set('momonumber', $momonumber);
+               $session->set('account_id', $momoid);
+
+              
+
                 return $this->redirectToRoute('app_home');
 
             }
